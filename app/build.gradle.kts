@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.moddyplayer"
+    namespace = "com.example.myapplication"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.moddyplayer"
+        applicationId = "com.example.myapplication"
         minSdk = 24
         targetSdk = 37
         versionCode = 1

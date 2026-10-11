@@ -1,16 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+
 }
 
 android {
-    namespace = "com.example.moddyplayer"
+    namespace = "com.example.myapplication"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.moddyplayer"
+        applicationId = "com.example.myapplication"
         minSdk = 24
         targetSdk = 37
         versionCode = 1
@@ -52,4 +54,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.session)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.kotlinx.coroutines.android)
 }

@@ -45,3 +45,9 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+// val musicScanner: MusicScanner by inject()
+//
+// lifecycleScope.launch {
+//     musicScanner.scanAudioFiles()
+// }

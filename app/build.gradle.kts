@@ -62,4 +62,5 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.kotlinx.coroutines.android)
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0")
 }

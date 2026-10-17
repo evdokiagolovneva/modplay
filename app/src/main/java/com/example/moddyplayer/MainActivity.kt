@@ -19,6 +19,7 @@ import com.example.moddyplayer.ui.theme.MOddyPlayerTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.unit.sp
+import com.example.moddyplayer.navigation.AppNavHost
 
 
 class MainActivity : ComponentActivity() {
@@ -27,22 +28,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MOddyPlayerTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ){
-                }
+                AppNavHost()
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun CardColumn()
-{
-    Column {
-        Text("ASD")
-        Text("Privett")
     }
 }

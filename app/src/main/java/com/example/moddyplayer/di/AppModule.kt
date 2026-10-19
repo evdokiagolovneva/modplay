@@ -2,7 +2,6 @@ package com.example.moddyplayer.di
 
 import androidx.room.Room
 import com.example.moddyplayer.data.db.AppDatabase
-import com.example.moddyplayer.data.db.MusicScanner
 import com.example.moddyplayer.player.PlaybackController
 import com.example.moddyplayer.player.PlayerCore
 import com.example.moddyplayer.repo.FavoriteRepository
@@ -38,7 +37,4 @@ val appModule = module {
 
     // плеер (ExoPlayer / PlayerCore)
     single<PlayerCore> { PlaybackController(get()) }
-
-    // сканер локальных файлов
-    single { MusicScanner(get(), get()) }
 }

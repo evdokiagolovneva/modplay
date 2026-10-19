@@ -8,22 +8,10 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface PlayerCore {
     fun play(track: Track)
-    fun playQueue(tracks: List<Track>, startIndex: Int = 0)
     fun pause()
-    fun resume()
-    fun skipToNext()
-    fun skipToPrevious()
     fun seekTo(ms: Long)
-    fun setPlaybackSpeed(speed: Float)
-    fun toggleShuffle(): Boolean
-    fun toggleRepeatMode(): RepeatMode
-
     val state: StateFlow<PlayerState>
 
     @OptIn(UnstableApi::class)
     fun registerAudioProcessor(processor: AudioProcessor)
-}
-
-enum class RepeatMode {
-    OFF, ALL, ONE
 }

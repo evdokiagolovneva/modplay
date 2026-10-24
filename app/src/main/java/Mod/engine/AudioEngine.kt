@@ -1,4 +1,4 @@
 package Mod.engine
 
-class ModRegistry {
+class AudioEngine {
 }

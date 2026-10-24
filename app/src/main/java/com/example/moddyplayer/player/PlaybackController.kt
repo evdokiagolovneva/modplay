@@ -100,4 +100,16 @@ class PlaybackController(
         stopProgressTracking()
         exoPlayer.release()
     }
+
+    fun resume() {
+        exoPlayer.play()
+    }
+
+    fun skipToNext() {
+
+    }
+
+    fun skipToPrevious() {
+
+    }
 }

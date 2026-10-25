@@ -1,3 +1,3 @@
 package Mod.engine
 
-data class Track()
+class Track()

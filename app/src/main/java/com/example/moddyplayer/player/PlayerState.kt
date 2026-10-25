@@ -1,5 +1,5 @@
 package com.example.moddyplayer.player
-import com.example.moddyplayer.data.db.Track
+import com.example.moddyplayer.data.db.dataa.Track
 
 data class PlayerState(
     val currentTrack: Track? = null,

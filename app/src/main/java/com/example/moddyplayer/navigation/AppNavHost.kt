@@ -22,7 +22,7 @@ import com.example.moddyplayer.presentation.LibraryScreen
 import com.example.moddyplayer.presentation.ModsScreen
 import com.example.moddyplayer.presentation.PlayerScreen
 import com.example.moddyplayer.presentation.SettingsScreen
-import com.example.moddyplayer.repo.TrackRepository
+import com.example.moddyplayer.data.db.repo.TrackRepository
 import org.koin.compose.koinInject
 
 @Preview
@@ -35,7 +35,7 @@ fun AppNavHost(
     val playbackController: PlaybackController = koinInject()
 
     //список треков из базы данных Room в реальном времени
-    val tracks by trackRepository.observeAll().collectAsState(initial = emptyList())
+    val tracks by trackRepository.allTracks.collectAsState(initial = emptyList())
 
     Column(Modifier.fillMaxSize()) {
         NavHost(

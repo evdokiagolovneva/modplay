@@ -1,4 +1,4 @@
-package com.example.moddyplayer.data.db
+package com.example.moddyplayer.data.db.dataa
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -12,8 +12,9 @@ interface TrackDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(track: Track): Long
 
+    // Меняем имя, чтобы совпадало с репозиторием
     @Query("SELECT * FROM tracks ORDER BY title")
-    fun observeAll(): Flow<List<Track>>
+    fun getAllTracks(): Flow<List<Track>>
 
     @Query("SELECT * FROM tracks WHERE id = :id")
     suspend fun getById(id: Long): Track?

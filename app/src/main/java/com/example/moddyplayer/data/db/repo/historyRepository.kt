@@ -1,7 +1,7 @@
-package com.example.moddyplayer.repo
+package com.example.moddyplayer.data.db.repo
 
-import com.example.moddyplayer.data.db.HistoryDao
-import com.example.moddyplayer.data.db.PlayHistory
+import com.example.moddyplayer.data.db.dataa.HistoryDao
+import com.example.moddyplayer.data.db.dataa.PlayHistory
 import kotlinx.coroutines.flow.Flow
 
 class HistoryRepository(private val dao: HistoryDao) {

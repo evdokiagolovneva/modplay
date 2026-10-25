@@ -1,4 +1,4 @@
-package com.example.moddyplayer.data.db
+package com.example.moddyplayer.data.db.dataa
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

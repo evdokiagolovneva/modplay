@@ -1,9 +1,9 @@
-package com.example.moddyplayer.repo
+package com.example.moddyplayer.data.db.repo
 
-import com.example.moddyplayer.data.db.Playlist
-import com.example.moddyplayer.data.db.PlaylistDao
-import com.example.moddyplayer.data.db.PlaylistTrack
-import com.example.moddyplayer.data.db.Track
+import com.example.moddyplayer.data.db.dataa.Playlist
+import com.example.moddyplayer.data.db.dataa.PlaylistDao
+import com.example.moddyplayer.data.db.dataa.PlaylistTrack
+import com.example.moddyplayer.data.db.dataa.Track
 import kotlinx.coroutines.flow.Flow
 
 class PlaylistRepository(private val dao: PlaylistDao) {

@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.moddyplayer.data.db.Track
+import com.example.moddyplayer.data.db.dataa.Track
 import com.example.moddyplayer.player.PlaybackController
 import org.koin.compose.koinInject
 

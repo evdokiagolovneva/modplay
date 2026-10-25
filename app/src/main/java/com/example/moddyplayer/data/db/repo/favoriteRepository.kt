@@ -1,7 +1,7 @@
-package com.example.moddyplayer.repo
+package com.example.moddyplayer.data.db.repo
 
-import com.example.moddyplayer.data.db.Favorite
-import com.example.moddyplayer.data.db.FavoriteDao
+import com.example.moddyplayer.data.db.dataa.Favorite
+import com.example.moddyplayer.data.db.dataa.FavoriteDao
 import kotlinx.coroutines.flow.Flow
 
 class FavoriteRepository(private val dao: FavoriteDao) {

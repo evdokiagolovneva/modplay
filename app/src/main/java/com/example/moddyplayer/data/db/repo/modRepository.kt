@@ -1,8 +1,8 @@
-package com.example.moddyplayer.repo
+package com.example.moddyplayer.data.db.repo
 
-import com.example.moddyplayer.data.db.ModDao
-import com.example.moddyplayer.data.db.ModEntity
-import com.example.moddyplayer.data.db.ModSetting
+import com.example.moddyplayer.data.db.dataa.ModDao
+import com.example.moddyplayer.data.db.dataa.ModEntity
+import com.example.moddyplayer.data.db.dataa.ModSetting
 import kotlinx.coroutines.flow.Flow
 
 class ModRepository(private val dao: ModDao) {

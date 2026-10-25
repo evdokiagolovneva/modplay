@@ -7,7 +7,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.moddyplayer.data.db.Track
+import com.example.moddyplayer.data.db.dataa.Track
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -18,12 +18,26 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.SimpleCache
+import java.io.File
 
 @OptIn(UnstableApi::class)
 class PlaybackController(
-    private val context: Context
+    private val context: Context,
+    private val simpleCache: SimpleCache
 ) : PlayerCore {
-    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context).build()
+
+    private val dataSourceFactory = CacheDataSource.Factory()
+        .setCache(simpleCache)
+        .setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory().setUserAgent("ModdyPlayer"))
+        .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
+
+    // И передаем эту фабрику при создании плеера (через DefaultMediaSourceFactory)
+    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context)
+        .setMediaSourceFactory(androidx.media3.exoplayer.source.DefaultMediaSourceFactory(context).setDataSourceFactory(dataSourceFactory))
+        .build()
 
     private val _state = MutableStateFlow(PlayerState())
     override val state: StateFlow<PlayerState> = _state.asStateFlow()
@@ -53,7 +67,15 @@ class PlaybackController(
     }
 
     override fun play(track: Track) {
-        val mediaItem = MediaItem.fromUri(track.uri)
+        val downloadedFile = File(context.filesDir, "downloads/${track.id}.mp3")
+
+        val uriToPlay = if (downloadedFile.exists()) {
+            android.net.Uri.fromFile(downloadedFile) // Играем локально без интернета!
+        } else {
+            android.net.Uri.parse(track.uri) // Играем из сети (с кэшированием)
+        }
+
+        val mediaItem = MediaItem.fromUri(uriToPlay)
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.prepare()
         exoPlayer.play()
@@ -112,4 +134,6 @@ class PlaybackController(
     fun skipToPrevious() {
 
     }
+
+
 }

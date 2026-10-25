@@ -1,8 +1,6 @@
 package com.example.moddyplayer.navigation
 
 import kotlinx.serialization.Serializable
-import Mod.manifest.ModManifest
-import com.example.moddyplayer.data.db.Track
 
 
 // ваще тут надо не строчку а трек

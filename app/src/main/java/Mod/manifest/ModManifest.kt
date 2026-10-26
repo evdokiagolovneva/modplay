@@ -1,17 +1,18 @@
 package Mod.manifest
 import kotlinx.serialization.Serializable
-// import kotlinx.serialization.json.*
+import kotlinx.serialization.json.*
 
 @Serializable
 data class ModManifest(
-    var id: String,
-    var name: String,
-    var version: String,
-    var authorName: String,
-    var description: String,
-    var entryPoint: String,
-    var minApiVersion: String,
-    var permissions: Collection<String>,
+    val id: String,
+    val name: String,
+    val version: String,
+    val authorName: String,
+    val description: String,
+    val apkName: String,
+    val entryPoint: String,
+    val minApiVersion: String = "",
+    val permissions: List<String> = emptyList(),
 ) {
 
 }

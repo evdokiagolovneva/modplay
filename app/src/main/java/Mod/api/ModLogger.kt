@@ -1,3 +1,3 @@
 package Mod.api
 
-class ModLogger 
+interface ModLogger

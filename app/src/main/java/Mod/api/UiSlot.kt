@@ -1,17 +1,8 @@
-//package Mod.api
-
-//internal interface UiSlot {
-    //companion object {
-        //val targetSlotId: `val`? = null
-        //val content: `val`? = null
-    //}
-//}
-
 package Mod.api
 
-internal interface UiSlot {
-    companion object {
-        val targetSlotId: String? = null
-        val content: Any? = null
-    }
+import androidx.compose.runtime.Composable
+
+interface UiSlot {
+    val targetSlotId: String
+    val content: @Composable () -> Unit
 }

@@ -1,3 +1,3 @@
 package Mod.api
 
-class AudioEffect 
+interface AudioEffect

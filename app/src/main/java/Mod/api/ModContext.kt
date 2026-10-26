@@ -1,13 +1,11 @@
-//package Mod.api
-
-//class ModContext {
-    //var logger: `val`? = null
-    //var metadataProvider: `val`? = null
-//}
-
 package Mod.api
 
-class ModContext {
-    var logger: ModLogger? = null
-    var metadataProvider: MetadataProvider? = null
+
+interface ModContext {
+    val logger: ModLogger?
+    val metadataProvider: MetadataProvider?
+    val currentTrackMetadata: String?
+    val isPlaying: Boolean
+    val volume: Int
+    val playSpeed: Int
 }

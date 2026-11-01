@@ -24,7 +24,7 @@ interface PlayerHostAPI {
 
     // Почему у нас идет философия построения UI через слоты?
     // Просто интересно мнение. UI Columns в foobar2000 с похожей идеей
-    fun registerUiSlot()
+    fun registerUiSlot(slot: UiSlot)
 
     fun httpGet(url: String): String?
 

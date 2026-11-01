@@ -29,12 +29,12 @@ class PlaybackController(
     private val simpleCache: SimpleCache
 ) : PlayerCore {
 
+    // ИСПРАВЛЕНИЕ: Используем универсальный DefaultDataSource.Factory вместо DefaultHttpDataSource.Factory
     private val dataSourceFactory = CacheDataSource.Factory()
         .setCache(simpleCache)
-        .setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory().setUserAgent("ModdyPlayer"))
+        .setUpstreamDataSourceFactory(androidx.media3.datasource.DefaultDataSource.Factory(context))
         .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
 
-    // И передаем эту фабрику при создании плеера (через DefaultMediaSourceFactory)
     private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context)
         .setMediaSourceFactory(androidx.media3.exoplayer.source.DefaultMediaSourceFactory(context).setDataSourceFactory(dataSourceFactory))
         .build()

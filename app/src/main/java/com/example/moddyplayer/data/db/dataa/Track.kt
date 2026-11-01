@@ -2,8 +2,13 @@ package com.example.moddyplayer.data.db.dataa
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Index
 
-@Entity(tableName = "tracks")
+
+@Entity(
+    tableName = "tracks",
+    indices = [Index(value = ["uri"], unique = true)]
+)
 data class Track(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val title: String,

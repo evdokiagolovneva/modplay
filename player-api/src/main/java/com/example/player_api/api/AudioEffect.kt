@@ -1,4 +1,4 @@
-package Mod.api
+package com.example.player_api.api
 import androidx.media3.common.audio.AudioProcessor
 interface AudioEffect
 {

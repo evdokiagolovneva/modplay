@@ -1,4 +1,4 @@
-package Mod.permissions
+package com.example.player_api.permissions
 
 enum class ModPermissions {
     AUDIO_EFFECTS,

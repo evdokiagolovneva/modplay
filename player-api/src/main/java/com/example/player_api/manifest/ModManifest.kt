@@ -1,4 +1,4 @@
-package Mod.manifest
+package com.example.player_api.manifest
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 

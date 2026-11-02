@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MOddy Player"
 include(":app")
+include(":player-api")

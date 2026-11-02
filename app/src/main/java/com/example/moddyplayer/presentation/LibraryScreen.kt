@@ -35,7 +35,7 @@ fun LibraryScreen(tracks: List<Track>, onTrackClick: (Track) -> Unit = {}) {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = androidx.compose.ui.Alignment.Center
             ) {
-                Text(text = "Музыка не найдена. Добавьте треки на устройство!")
+                Text(text = "Музыка не найдена. Добавьте треки на устройство")
             }
         } else {
             LazyColumn(

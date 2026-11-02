@@ -3,8 +3,13 @@ package Mod.engine
 import Mod.api.ModAPI
 import Mod.manifest.ModManifest
 import android.content.Context
+import androidx.annotation.OptIn
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import com.example.moddyplayer.player.PlayerCore
 import dalvik.system.DexClassLoader
 import kotlinx.serialization.json.Json
+import okhttp3.OkHttpClient
 import java.io.File
 import java.io.InputStream
 import java.util.zip.ZipFile
@@ -12,9 +17,10 @@ import java.util.zip.ZipFile
 internal class ModEngineRealization: ModEngine {
 
     // По id храним манифест и конкретно класс
-    private val mods: MutableMap<String, Pair<ModManifest, ModAPI>> = mutableMapOf()
-
+    private val mods: MutableMap<String, Triple<ModManifest, ModAPI, PlayerHostAPIRealization>> = mutableMapOf()
     private val loadedMods: MutableMap<String, ModManifest> = mutableMapOf()
+
+    private val metadataProvidersManager = MetadataProvidersManager()
 
     override fun readManifest(path: String?): ModManifest {
         ZipFile(path).use { apk ->
@@ -64,7 +70,15 @@ internal class ModEngineRealization: ModEngine {
     }
 
 
-    override fun enableMod(path: String?, parentLoader: ClassLoader?)
+    @OptIn(UnstableApi::class)
+    override fun enableMod(path: String?,
+                           parentLoader: ClassLoader?,
+                           player: ExoPlayer,
+                           audioEngine: AudioEngine,
+                           uiManager: UiSlotManager,
+                           okHttpClient: OkHttpClient,
+                           playerCore: PlayerCore
+    )
     {
         val dexLoader = DexClassLoader(
             path,
@@ -81,9 +95,21 @@ internal class ModEngineRealization: ModEngine {
         val modMainClass = dexLoader.loadClass(modManifest.entryPoint)
 
         val modInstance = modMainClass.getDeclaredConstructor().newInstance() as ModAPI
+        val hostAPI = PlayerHostAPIRealization(
+            modId = modManifest.id,
+            player = player,
+            audioEngine = audioEngine,
+            uiManager = uiManager,
+            okHttpClient = okHttpClient,
+            modManifest = modManifest,
+            playerCore = playerCore,
+            metadataManager = metadataProvidersManager
+        )
 
-        mods[modManifest.id] = Pair(modManifest, modInstance)
+        mods[modManifest.id] = Triple(modManifest, modInstance, hostAPI)
 
+
+        modInstance.onEnable(hostAPI)
         // быть может, нужно просто дернуть флажок а там уже самому приложению
         // на другом уровне синхронизировать взаимодействие
         // Чисто теоретически - есть мод, он когда подрубается мы должны провести целый процесс:
@@ -101,7 +127,18 @@ internal class ModEngineRealization: ModEngine {
 
     override fun disableMod(id: String)
     {
-        mods.remove(id)
+        val modTriple = mods.remove(id) ?: return
+
+        val modInstance = modTriple.second
+        val hostAPI = modTriple.third
+
+        try {
+            modInstance.onDisable()
+        } catch (e: Exception) {
+            e.printStackTrace() // Защищаем движок от вылета, если в моде кривой onDisable
+        }
+
+        hostAPI.release()
     }
 
     // Точно ли это должно быть методом в составе интерфейса?
@@ -115,8 +152,8 @@ internal class ModEngineRealization: ModEngine {
 
     override fun getModApi(id: String): ModAPI
     {
-        val modPair = mods[id] ?: throw IllegalArgumentException("Mod with id $id is not enabled or not found")
-        return modPair.second
+        val modTriple = mods[id] ?: throw IllegalArgumentException("Mod with id $id is not enabled or not found")
+        return modTriple.second
     }
 
 

@@ -1,7 +1,7 @@
-package Mod.engine
+package com.example.player_api.engine
 
-import Mod.manifest.ModManifest
-import Mod.api.ModAPI
+import com.example.player_api.manifest.ModManifest
+import com.example.player_api.api.ModAPI
 import android.content.Context
 import 	dalvik.system.DexClassLoader
 import java.util.zip.ZipFile
@@ -10,7 +10,8 @@ import android.content.pm.PackageManager
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.moddyplayer.player.PlayerCore
+import com.example.player_api.api.PlayerHostAPI
+import com.example.player_api.api.PlayerHostContext
 import okhttp3.OkHttpClient
 
 
@@ -23,14 +24,12 @@ interface ModEngine {
     fun unloadMod(context: Context, id: String): Boolean
 
     @OptIn(UnstableApi::class)
-    fun enableMod(path: String?,
-                  parentLoader: ClassLoader?,
-                  player: ExoPlayer,
-                  audioEngine: AudioEngine,
-                  uiManager: UiSlotManager,
-                  okHttpClient: OkHttpClient,
-                  playerCore: PlayerCore
+    fun enableMod(
+        path: String?,
+        parentLoader: ClassLoader?,
+        hostContext: PlayerHostContext
     )
+
     fun disableMod(id: String)
 
     // Точно ли это должно быть методом в составе интерфейса?

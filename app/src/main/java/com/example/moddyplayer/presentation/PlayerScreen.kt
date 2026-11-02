@@ -11,8 +11,7 @@ import org.koin.compose.koinInject
 
 @Composable
 fun PlayerScreen(
-    // Если навигация передает пустой список, мы можем не использовать его напрямую,
-    // а управлять воспроизведением через PlaybackController
+
     tracks: List<String> = emptyList()
 ) {
     // Внедряем наш контроллер плеера через Koin

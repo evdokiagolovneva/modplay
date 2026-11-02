@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            AppNavHost()    // Главный экран / граф навигации вашего приложения
+            AppNavHost()
 
         }
     }

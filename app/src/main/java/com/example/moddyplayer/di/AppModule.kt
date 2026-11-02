@@ -49,8 +49,8 @@ val appModule = module {
     single { ModRepository(get()) }
 
     // плеер (ExoPlayer / PlayerCore)
-    single<PlayerCore> { PlaybackController(get(), get()) }
-    single { PlaybackController(get(), get()) }
+    single<PlayerCore> { PlaybackController(get(), get(), get()) }
+    single { PlaybackController(get(), get(), get())}
 
     // сеть логгер для запросов
     single {

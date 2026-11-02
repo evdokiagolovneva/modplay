@@ -209,7 +209,8 @@ class PlayerHostAPIRealization @OptIn(UnstableApi::class) constructor
 
 override fun log(message: String) {
         checkExpiration()
-        // Перенаправляем логи мода в системный лог вашего плеера
-        Log.d("ModSandbox", "[MOD LOG]: $message")
+        // Передаем Compose-лямбду или View мода в менеджер интерфейса плеера
+        uiManager.injectModUi(slot.targetSlotId, slot.content)
     }
-*/
+}
+ */

@@ -7,6 +7,7 @@ import com.example.moddyplayer.data.db.dataa.AppDatabase
 import com.example.moddyplayer.player.PlaybackController
 import com.example.moddyplayer.player.PlayerCore
 import com.example.moddyplayer.data.db.repo.FavoriteRepository
+import com.example.moddyplayer.data.db.dataa.MusicScanner
 import com.example.moddyplayer.data.db.repo.HistoryRepository
 import com.example.moddyplayer.data.db.repo.ModRepository
 import com.example.moddyplayer.data.db.repo.PlaylistRepository
@@ -39,7 +40,8 @@ val appModule = module {
     single { get<AppDatabase>().favoriteDao() }
     single { get<AppDatabase>().modDao() }
 
-    // репозитории
+    // Сканер и репозитории
+    single { MusicScanner(get()) }
     single { TrackRepository(get(), get()) }
     single { PlaylistRepository(get()) }
     single { HistoryRepository(get()) }
@@ -47,8 +49,8 @@ val appModule = module {
     single { ModRepository(get()) }
 
     // плеер (ExoPlayer / PlayerCore)
-    single<PlayerCore> { PlaybackController(get(), get()) }
-    single { PlaybackController(get(), get()) }
+    single<PlayerCore> { PlaybackController(get(), get(), get()) }
+    single { PlaybackController(get(), get(), get())}
 
     // сеть логгер для запросов
     single {
@@ -84,6 +86,16 @@ val appModule = module {
         val cacheEvictor = LeastRecentlyUsedCacheEvictor(100 * 1024 * 1024) // 100 МБ
         val databaseProvider = StandaloneDatabaseProvider(get())
         SimpleCache(cacheDirectory, cacheEvictor, databaseProvider)
+    }
+
+    single {
+        Room.databaseBuilder(
+            get(),
+            AppDatabase::class.java,
+            "moddy_player_db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
 }

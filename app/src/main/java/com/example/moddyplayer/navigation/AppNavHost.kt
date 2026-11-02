@@ -50,11 +50,15 @@ fun AppNavHost(
             }
             composable<Library> {
                 // передаем настоящий список треков из Room
-                LibraryScreen(tracks = tracks)
-                navController.navigate(Player)
+                LibraryScreen(
+                    tracks = tracks,
+                    onTrackClick = { track ->
+                        playbackController.play(track) // Плеер вызывается только по реальному клику пользователя
+                    }
+                )
             }
             composable<Mods> {
-                ModsScreen(emptyList())
+                ModsScreen()
             }
             composable<Settings> {
                 SettingsScreen()

@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
         Track::class, Playlist::class, PlaylistTrack::class,
         PlayHistory::class, Favorite::class, ModEntity::class, ModSetting::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

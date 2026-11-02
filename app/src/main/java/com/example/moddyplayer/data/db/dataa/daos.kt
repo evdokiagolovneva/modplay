@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TrackDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) // При совпадении unique index заменяет запись
     suspend fun insert(track: Track): Long
 
     // Меняем имя, чтобы совпадало с репозиторием

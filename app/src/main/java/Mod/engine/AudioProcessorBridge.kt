@@ -1,6 +1,6 @@
 package Mod.engine
 
-import Mod.api.AudioEffect
+import com.example.player_api.api.AudioEffect
 import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.common.util.UnstableApi
 import java.nio.ByteBuffer
@@ -21,9 +21,17 @@ class AudioProcessorBridge(
 
 
     override fun configure(inputAudioFormat: AudioProcessor.AudioFormat): AudioProcessor.AudioFormat {
+        if (inputAudioFormat == AudioProcessor.AudioFormat.NOT_SET) {
+            throw AudioProcessor.UnhandledAudioFormatException(inputAudioFormat)
+        }
+
         inputFormat = inputAudioFormat
-        outputFormat = inputAudioFormat
-        isActive = inputAudioFormat != AudioProcessor.AudioFormat.NOT_SET
+        outputFormat = AudioProcessor.AudioFormat(
+            inputAudioFormat.sampleRate,
+            inputAudioFormat.channelCount,
+            androidx.media3.common.C.ENCODING_PCM_FLOAT
+        )
+        isActive = true
 
         return outputFormat
     }
@@ -45,6 +53,14 @@ class AudioProcessorBridge(
 
         internalBuffer.put(inputBuffer)
         internalBuffer.flip() // Переводим буфер в режим чтения для мода
+
+        try {
+            val field = modEffect.javaClass.getDeclaredField("lastSampleRate")
+            field.isAccessible = true
+            field.setFloat(modEffect, inputFormat.sampleRate.toFloat())
+        } catch (e: Exception) {
+            // Если у другого модуля нет этого поля, просто игнорируем
+        }
 
         modEffect.processAudioFrame(internalBuffer)
 

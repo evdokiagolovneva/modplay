@@ -2,7 +2,6 @@ package com.example.player_api.api
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.MediaItem
 
-
 interface ModAPI {
 
 

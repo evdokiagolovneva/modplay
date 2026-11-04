@@ -1,6 +1,6 @@
 package Mod.engine
 
-import Mod.api.ModAPI
+import com.example.player_api.api.ModAPI
 import Mod.manifest.ModManifest
 import android.content.Context
 import androidx.annotation.OptIn
@@ -35,18 +35,26 @@ internal class ModEngineRealization: ModEngine {
 
 
     override fun loadMod(context: Context, assetName: String) {
-        val modsDir = File(context.filesDir, "mods").apply { mkdirs() }
-        val file = File(modsDir, assetName)
+        try {
+            val modsDir = File(context.filesDir, "mods").apply { mkdirs() }
+            val fileName = assetName.substringAfterLast('/')
+            val file = File(modsDir, fileName)
 
-        context.assets.open(assetName).use { inputStream ->
-            file.outputStream().use { outputStream ->
-                inputStream.copyTo(outputStream)
+            if (file.exists()) {
+                file.setWritable(true)
             }
-        }
-        file.setReadOnly()
+            context.assets.open(assetName).use { inputStream ->
+                file.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+            file.setReadOnly()
 
-        val modManifest = readManifest(file.absolutePath)
-        loadedMods[modManifest.id] = modManifest
+            val modManifest = readManifest(file.absolutePath)
+            loadedMods[modManifest.id] = modManifest
+        } catch (e: Exception) {
+            android.util.Log.e("ModdyPlayer", "Ошибка загрузки мода!", e)
+        }
     }
 
     override fun unloadMod(context: Context, id: String): Boolean {

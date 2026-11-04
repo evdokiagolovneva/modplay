@@ -1,4 +1,4 @@
-package Mod.api
+package com.example.player_api.api
 
 data class MetadataTrack(
     val id: String,

@@ -1,9 +1,9 @@
 package Mod.engine
 
-import Mod.api.AudioEffect
-import Mod.api.MetadataProvider
-import Mod.api.PlayerHostAPI
-import Mod.api.UiSlot
+import com.example.player_api.api.AudioEffect
+import com.example.player_api.api.MetadataProvider
+import com.example.player_api.api.PlayerHostAPI
+import com.example.player_api.api.UiSlot
 import Mod.manifest.ModManifest
 import Mod.permissions.ModPermissions
 import androidx.annotation.OptIn
@@ -11,6 +11,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.moddyplayer.player.PlayerCore
+import com.example.player_api.engine.Track
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

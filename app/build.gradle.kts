@@ -36,6 +36,11 @@ android {
     buildFeatures {
         compose = true
     }
+    sourceSets {
+        getByName("main") {
+            assets.srcDirs("src/main/assets")
+        }
+    }
 }
 
 dependencies {
@@ -70,5 +75,5 @@ dependencies {
     implementation(project(":player-api"))
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation(libs.kotlinx.serialization.json)
-
+    // implementation(files("libs/player-api-release.aar"))
 }

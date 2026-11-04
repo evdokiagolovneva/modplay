@@ -13,7 +13,7 @@ import kotlin.coroutines.suspendCoroutine
 class MusicScanner(private val context: Context) {
 
     suspend fun scanTracks(): List<Track> = withContext(Dispatchers.IO) {
-        // сначала принудительно просим систему просканировать папку загрузки»з или всю внешнюю память,
+        // сначала принудительно просим систему просканировать папку загрузки или всю внешнюю память,
         // чтобы файлы, перетащенные с ПК, появились в MediaStore.
         triggerMediaScan()
 

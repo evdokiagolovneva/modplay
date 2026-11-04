@@ -1,6 +1,6 @@
 package Mod.engine
 
-import Mod.api.UiSlot
+import com.example.player_api.api.UiSlot
 import Mod.manifest.ModManifest
 import androidx.compose.runtime.Composable
 

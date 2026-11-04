@@ -1,5 +1,6 @@
 package com.example.moddyplayer.presentation
 
+import Mod.engine.UiSlotManager
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,6 +18,9 @@ fun PlayerScreen(
     // Внедряем наш контроллер плеера через Koin
     val playbackController: PlaybackController = koinInject()
     val state by playbackController.state.collectAsState()
+
+    val uiSlotManager: UiSlotManager = koinInject()
+
 
     Column(
         modifier = Modifier
@@ -87,7 +91,11 @@ fun PlayerScreen(
             Button(onClick = { playbackController.skipToNext() }) {
                 Text("Вперед")
             }
+
         }
+        Spacer(Modifier.height(24.dp))
+
+        uiSlotManager.Render(slotId = "playerAudioSettings")
     }
 }
 

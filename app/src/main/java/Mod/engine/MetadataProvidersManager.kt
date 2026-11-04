@@ -1,7 +1,7 @@
 package Mod.engine
 
-import Mod.api.MetadataProvider
-import Mod.api.MetadataTrack
+import com.example.player_api.api.MetadataProvider
+import com.example.player_api.api.MetadataTrack
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

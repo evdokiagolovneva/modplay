@@ -1,6 +1,10 @@
 package com.example.player_api.api;
 
+import android.service.settings.preferences.MetadataResult
+
 
 // Чем этот гражданин будет отличаться от встроенного в Media3 MediaMetadata?
-public interface MetadataProvider {
+interface MetadataProvider {
+    suspend fun fetchMetadata(track: MetadataTrack): Map<String, String>
+
 }

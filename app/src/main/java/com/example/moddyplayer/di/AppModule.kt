@@ -2,6 +2,11 @@
 @file:OptIn(androidx.media3.common.util.UnstableApi::class)
 package com.example.moddyplayer.di
 
+import Mod.engine.AudioEngine
+import Mod.engine.ModEngine
+import Mod.engine.ModEngineRealization
+import Mod.engine.ModLifecycleCoordinator
+import Mod.engine.UiSlotManager
 import androidx.room.Room
 import com.example.moddyplayer.data.db.dataa.AppDatabase
 import com.example.moddyplayer.player.PlaybackController
@@ -21,6 +26,7 @@ import com.example.moddyplayer.data.db.network.MusicApi
 import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
+import org.koin.android.ext.koin.androidContext
 import java.io.File
 
 val appModule = module {
@@ -98,4 +104,25 @@ val appModule = module {
             .build()
     }
 
+
+}
+
+val modEngineModule = module{
+
+    single { UiSlotManager() }
+    single { AudioEngine(context = androidContext()) }
+    single<ModEngine>{ ModEngineRealization() }
+
+
+    single{
+        ModLifecycleCoordinator(
+            context = androidContext(),
+            modEngine = get(),
+            player = get<AudioEngine>().player,
+            audioEngine = get(),
+            uiSlotManager = get(),
+            okHttpClient = get(),
+            playerCore = get<com.example.moddyplayer.player.PlaybackController>() as com.example.moddyplayer.player.PlayerCore
+        )
+    }
 }

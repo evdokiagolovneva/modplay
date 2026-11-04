@@ -1,6 +1,6 @@
 package Mod.engine
 
-import Mod.api.AudioEffect
+import com.example.player_api.api.AudioEffect
 import android.content.Context
 import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.common.util.UnstableApi
